@@ -22,5 +22,25 @@ public class Player : MonoBehaviour
         transform.Translate(Vector3.up * Time.deltaTime * playerMoveSpeed * verticalInput);
 
 
+        //player Boundaries for y direction
+        if (transform.position.y > 0)
+        {
+            transform.position = new Vector3(transform.position.x, 0, 0);
+        }
+        else if (transform.position.y < -4.2f)
+        {
+            transform.position = new Vector3(transform.position.x, -4.2f, 0);
+        }
+        //player boundaries for x direction
+        if (transform.position.x > 8.2)
+        {
+            transform.position = new Vector3(8.2f, transform.position.y, 0);
+        }
+        else if (transform.position.x < -8.2)
+        {
+            transform.position = new Vector3(-8.2f, transform.position.y, 0);
+        }
+
+
     }
 }
