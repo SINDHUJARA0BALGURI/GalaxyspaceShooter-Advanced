@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public bool canTrippleShot = false;
     [SerializeField]
     private float playerMoveSpeed; 
     private float horizontalInput,verticalInput;
-    public GameObject laserPrefab;
+    public GameObject laserPrefab,tripleLaserPrefab;
     public float fireRate = 0.25f;
     public float canFire = 0;
 
@@ -23,13 +24,26 @@ public class Player : MonoBehaviour
         PlayerMovement();
         if (Input.GetKeyDown(KeyCode.Space)||Input.GetMouseButton(0))
         {
-            if (Time.time > canFire)
+            Shoot();
+        }
+    }
+    private void Shoot()
+    {
+        if (Time.time > canFire)
+        {
+            if (canTrippleShot == true)
+            {
+                Instantiate(tripleLaserPrefab, transform.position, Quaternion.identity); //centre
+                
+            }
+            else
             {
                 Instantiate(laserPrefab, transform.position, Quaternion.identity);
-                canFire = Time.deltaTime * fireRate;
             }
-           
         }
+       
+        canFire = Time.deltaTime * fireRate;
+
     }
     private void PlayerMovement()
     {
